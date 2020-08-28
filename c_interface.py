@@ -1,7 +1,5 @@
-import ctypes
 import os
-import csv
-from itertools import islice
+import ctypes
 
 
 # Path of the Script
@@ -38,7 +36,7 @@ def c_str(string):
     return ctypes.c_char_p(string.encode('utf-8'))
 
 
-def run_booster(data, num_classes):
+def run_booster(data, num_classes=NUM_CLASSES):
     """Function that uses the C++ LGBM API to perform predictions.
     Expects a nested list of samples which converts to a C++ Double Array
     in order to compute the predictions.
@@ -78,24 +76,3 @@ def run_booster(data, num_classes):
 
     LIB.LGBM_BoosterFree(booster)
     return [ctypes.c_double(i).value for i in predictions]
-
-
-def main():
-    with open(os.path.join(PATH, 'test_data.csv')) as data_f:
-        data_input = [line.rstrip().split(',') for line in data_f]
-
-    data_input = [[float(i) for i in sample] for sample in data_input]
-    c_predictions = run_booster(data=data_input, num_classes=NUM_CLASSES)
-    prediction_size = len(c_predictions)
-    c_predictions = iter(c_predictions)
-    c_predictions = [list(islice(c_predictions, NUM_CLASSES))
-                     for _ in range(prediction_size // NUM_CLASSES)]
-
-    with open(os.path.join(PATH, 'output.csv'), 'w', newline='') as out_f:
-        wr = csv.writer(out_f)
-        for L in iter(c_predictions):
-            wr.writerow(L)
-
-
-if __name__ == '__main__':
-    main()

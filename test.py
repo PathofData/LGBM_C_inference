@@ -1,23 +1,12 @@
-import ctypes
 import os
 import unittest
 from itertools import islice
-from main import run_booster
+from c_interface import run_booster
 
 
 # Path of the Script
 PATH = os.path.abspath(os.path.dirname(__file__))
-# Path of the LGBM Library
-LIB_PATH = os.path.join(PATH, 'lib_lightgbm.so')
-LIB = ctypes.cdll.LoadLibrary(LIB_PATH)
-# Path of the trained LGB model
-MODEL_PATH = 'saved_model.txt'
 NUM_CLASSES = 3
-
-dtype_float32 = 0
-dtype_float64 = 1
-dtype_int32 = 2
-dtype_int64 = 3
 
 
 class TestListElements(unittest.TestCase):

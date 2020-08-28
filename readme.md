@@ -7,9 +7,12 @@ or its 3rd party dependencies (numpy, scipy, etc...).
 This approach has minimal dependencies and is ideal for environments with limited resources
 such as mobile and IoT devices.
 
-### Explanation of the code
+### Code Explanation
 The code in this project is inspired from
 [the official repository](https://github.com/microsoft/LightGBM/blob/master/tests/c_api_test/test_.py)
+
+The interface between C++ and Python is presented in the `c_interface.py` file.
+This file contains the needed functions to use the C++ library through Python.
 
 This example uses a model trained on the Iris dataset on a normal python environment. A
 sample script to train the model is provided in `train.py`. After training is complete you
@@ -26,9 +29,9 @@ C++ variables. The functions `c_array` and `c_str` take care of that. The `run_b
 wrapper function integrates the logic so that we can feed python data directly without
 having to deal with the conversions running under the hood.
 
-### Script execution
+### Predicting
 
-Executing the `main.py` will read the data from a test_data.csv file, and using the
+Executing the `predict.py` will read the data from a test_data.csv file, and using the
 saved model will perform predictions which will be saved in the output.csv file.
 
 ### Testing
