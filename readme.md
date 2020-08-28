@@ -1,4 +1,4 @@
-##Lightweight LGBM inference using C++ API
+## Lightweight LGBM inference using C++ API
 
 This repository provides a sample python script which demonstrates the use of the C++ API
 provided by the LGBM package in order to perform inference without using the Python package
