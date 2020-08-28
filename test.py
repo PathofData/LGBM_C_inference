@@ -89,7 +89,7 @@ class TestListElements(unittest.TestCase):
     single sample separated by comma.
     """
     def setUp(self):
-        """Read the labels into an 1D list and cast it into float
+        """Read the predictions into an nested list and cast it into float
         """
         with open(os.path.join(PATH, 'test_predictions.csv')) as label_f:
             python_predictions = [line.rstrip().split(',') for line in label_f]
@@ -102,7 +102,7 @@ class TestListElements(unittest.TestCase):
 
         data_input = [[float(i) for i in sample] for sample in data_input]
         """Perform the prediction. Keep in mind that the predictions are
-        a flattened array of shape n_samples * n_classes
+        a flattened list of shape n_samples * n_classes
         """
         c_predictions = run_booster(data=data_input, num_classes=NUM_CLASSES)
         prediction_size = len(c_predictions)
