@@ -83,16 +83,17 @@ def run_booster(data, num_classes):
 class TestListElements(unittest.TestCase):
     """Class to test Python library predictions with
     C++ library predictions. The inputs are:
-    python_labels: CSV file with each line being a sample label
-    test_data: CSV file with each line being a single sample features
-    separated by comma.
+    python_predictions: CSV file with each line being a python
+    prediction for a single sample separated by comma.
+    test_data: CSV file with each line being features from a
+    single sample separated by comma.
     """
     def setUp(self):
         """Read the labels into an 1D list and cast it into float
         """
         with open(os.path.join(PATH, 'test_predictions.csv')) as label_f:
-            python_labels = [line.rstrip().split(',') for line in label_f]
-        python_labels = [[float(i) for i in sample] for sample in python_labels]
+            python_predictions = [line.rstrip().split(',') for line in label_f]
+        python_predictions = [[float(i) for i in sample] for sample in python_predictions]
 
         """Read the samples into a nested list and cast it into float
         """
@@ -111,7 +112,7 @@ class TestListElements(unittest.TestCase):
         c_predictions = [list(islice(c_predictions, NUM_CLASSES))
                          for _ in range(prediction_size // NUM_CLASSES)]
 
-        self.expected = python_labels
+        self.expected = python_predictions
         self.result = c_predictions
 
     def test_count_eq(self):

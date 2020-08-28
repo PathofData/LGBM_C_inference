@@ -31,6 +31,7 @@ def main():
     model = lgb.train(train_params, train_set=train_ds, valid_sets=valid_ds)
     predictions = model.predict(X_test)
     predicted_classes = np.argmax(predictions, axis=1)
+
     print(classification_report(y_test, predicted_classes))
 
     X_test.to_csv('test_data.csv', index=False, header=False)
